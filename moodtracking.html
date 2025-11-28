@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloud 7 | Mood Tracking</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<!-- CHART.JS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background: #f7f9ff;
+        color: #1d1d1d;
+    }
+
+    /* Hero */
+    .hero {
+        background: linear-gradient(135deg, #a8c0ff, #d8baff);
+        color: #fff;
+        padding: 70px 25px;
+        text-align: center;
+    }
+    .hero h1 {
+        margin: 0;
+        font-size: 42px;
+    }
+    .hero p {
+        margin-top: 10px;
+        opacity: 0.95;
+        font-size: 18px;
+    }
+
+    /* Page Layout */
+    .dashboard {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
+    .stat-card {
+        background: white;
+        padding: 20px;
+        border-radius: 18px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+        text-align: center;
+        border-left: 6px solid #a8c0ff;
+    }
+    .stat-number {
+        font-size: 35px;
+        font-weight: 700;
+        color: #5b6de0;
+    }
+
+    /* Mood Form */
+    .mood-form {
+        margin-top: 40px;
+        background: white;
+        padding: 25px;
+        border-radius: 18px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+    }
+    .mood-form h2 {
+        margin-top: 0;
+    }
+    .mood-form label {
+        font-weight: 600;
+        display: block;
+        margin-top: 15px;
+    }
+    .mood-form select, .mood-form input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+    }
+    .mood-btn {
+        margin-top: 20px;
+        background: #a8c0ff;
+        border: none;
+        color: white;
+        padding: 12px 18px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .mood-btn:hover {
+        background: #8eaaff;
+    }
+
+    /* Charts */
+    .chart-container {
+        background: white;
+        padding: 25px;
+        border-radius: 18px;
+        margin-top: 40px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+    }
+
+    /* Recent Entries */
+    .entries {
+        margin-top: 40px;
+    }
+    .entry-card {
+        background: white;
+        padding: 20px;
+        border-radius: 18px;
+        margin-bottom: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+    }
+    .entry-date {
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>Mood Tracking Dashboard</h1>
+    <p>Track your emotional well-being and identify patterns</p>
+</section>
+
+<div class="dashboard">
+
+    <!-- LOG MOOD BUTTON -->
+    <div class="mood-form">
+        <h2>+ Log Today's Mood</h2>
+
+        <label>Mood</label>
+        <select id="mood">
+            <option value="Excellent">😊 Excellent</option>
+            <option value="Good">🙂 Good</option>
+            <option value="Okay">😐 Okay</option>
+            <option value="Low">😔 Low</option>
+            <option value="Struggling">😭 Struggling</option>
+        </select>
+
+        <label>Stress (0–10)</label>
+        <input type="number" id="stress" min="0" max="10" value="0">
+
+        <label>Energy (0–10)</label>
+        <input type="number" id="energy" min="0" max="10" value="5">
+
+        <label>Sleep (Hours)</label>
+        <input type="number" id="sleep" min="0" max="14" value="7">
+
+        <button class="mood-btn" onclick="saveMood()">Save Entry</button>
+    </div>
+
+    <!-- STATS GRID -->
+    <div class="stats-grid" style="margin-top:40px;">
+        <div class="stat-card">
+            <h3>Total Entries</h3>
+            <div class="stat-number" id="totalEntries">0</div>
+        </div>
+        <div class="stat-card">
+            <h3>Avg Stress</h3>
+            <div class="stat-number" id="avgStress">0</div>
+        </div>
+        <div class="stat-card">
+            <h3>Avg Energy</h3>
+            <div class="stat-number" id="avgEnergy">0</div>
+        </div>
+        <div class="stat-card">
+            <h3>Avg Sleep</h3>
+            <div class="stat-number" id="avgSleep">0</div>
+        </div>
+    </div>
+
+    <!-- TREND CHART -->
+    <div class="chart-container">
+        <h2>Last 7 Days Trends</h2>

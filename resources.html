@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloud 7 | Resource Library</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f7f9ff;
+      color: #1d1d1d;
+    }
+    nav {
+      background: white;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      padding: 15px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    nav .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #5a71d8;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+    nav a:hover {
+      color: #8797f0;
+    }
+    .hero {
+      background: linear-gradient(135deg, #a8c0ff, #d8baff);
+      color: white;
+      padding: 70px 20px;
+      text-align: center;
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: 42px;
+      font-weight: 700;
+    }
+    .hero p {
+      margin-top: 10px;
+      font-size: 18px;
+      opacity: 0.95;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .crisis {
+      background: white;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+      margin-bottom: 40px;
+    }
+    .crisis h2 {
+      margin-top: 0;
+    }
+    .crisis p {
+      line-height: 1.5;
+    }
+    .search-bar {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .search-bar input, .search-bar select {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+    .resource-card {
+      background: white;
+      padding: 20px;
+      border-radius: 18px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+      border-left: 6px solid #a8c0ff;
+      transition: 0.2s ease;
+    }
+    .resource-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .resource-card h3 {
+      margin-top: 0;
+      font-size: 20px;
+      color: #444;
+    }
+    .resource-card p {
+      color: #555;
+      line-height: 1.5;
+    }
+    .resource-card a {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 16px;
+      background: #a8c0ff;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .resource-card a:hover {
+      background: #8ba9ff;
+    }
+    .footer-space {
+      height: 60px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Cloud 7</div>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="services.html">Services</a>
+      <a href="moodtracking.html">Mood Tracking</a>
+      <a href="journal.html">Journal</a>
+      <a href="book.html">Book Session</a>
+      <a href="resources.html"><b>Resources</b></a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Resource Library</h1>
+    <p>Curated articles, guides, and tools to support your mental-wellness journey</p>
+  </section>
+
+  <div class="container">
+
+    <!-- Crisis Support Section -->
+    <div class="crisis">
+      <h2>Crisis Support — Available 24/7</h2>
+      <p>📞 If you are in crisis or need immediate help, these services are here for you:</p>
+      <ul>
+        <li><strong>🆘 Samaritans</strong> — 116 123 (UK & ROI): Free confidential support.</li>
+        <li><strong>📞 NHS Mental Health Helpline</strong> — call 111 (select mental health option in England): 24/7 urgent support. :contentReference[oaicite:3]{index=3}</li>
+        <li><strong>📚 Mind (charity) / local crisis-support lines</strong> — search online for your area’s support if you’re feeling distressed or in need of help.</li>
+      </ul>
+    </div>
+
+    <!-- Search / Filter -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search resources...">
+      <select id="filterCategory">
+        <option value="">All Categories</option>
+        <option>Stress Management</option>
+        <option>Anxiety</option>
+        <option>Depression</option>
+        <option>Self Care</option>
+        <option>Sleep</option>
+        <option>General Wellness</option>
+        <option>Crisis Support</option>
+      </select>
+    </div>
+
+    <!-- Resources Grid -->
+    <div class="resources-grid" id="resourcesGrid">
+      <!-- Resource cards inserted by JS -->
+    </div>
+
+  </div>
+
+  <div class="footer-space"></div>
+
+<script>
+// Example resource list — you can expand or replace with more
+const resources = [
+  {
+    title: "5-Minute Guided Meditation for Stress & Anxiety Relief",
+    desc: "A short guided meditation video to help reduce stress and calm your mind.",
+    url: "https://www.youtube.com/watch?v=2EmlsvTtLLI",
+    category: "Stress Management"
+  },
+  {
+    title: "Understanding Anxiety: Self-help Guides & Tips (NHS)",
+    desc: "Official NHS informational guide on anxiety: symptoms, coping strategies and self-help techniques.",
+    url: "https://www.nhs.uk/mental-health/conditions/anxiety/",
+    category: "Anxiety"
+  },
+  {
+    title: "Depression Self-Help Guide (NHS Inform)",
+    desc: "Free self-help guide based on CBT to help manage depression symptoms at your own pace.",
+    url: "https://www.nhsinform.scot/illnesses-and-conditions/mental-health/mental-health-self-help-guides/depression-self-help-guide",
+    category: "Self Care"
+  },
+  {
+    title: "Mental Wellbeing Audio & Self-Help Guides (NHS Moodzone)",
+    desc: "Helpful audio guides and worksheets for anxiety, low mood, sleep struggles and more.",
+    url: "https://www.nhs.uk/conditions/stress-anxiety-depression/moodzone-mental-wellbeing-audio-guides/",
+    category: "General Wellness"
+  },
+  {
+    title: "Sleep Hygiene: Better Rest for Better Health",
+    desc: "Tips and practices to improve your sleep quality and daily well-being.",
+    url: "https://www.nhs.uk/every-mind-matters/mental-health/looking-after-your-mental-health/get-sleep-quality-and-tips/",
+    category: "Sleep"
+  }
+];
+
+function renderResources() {
+  const grid = document.getElementById("resourcesGrid");
+  grid.innerHTML = "";
+
+  const search = document.getElementById("searchInput").value.toLowerCase();
+  const cat = document.getElementById("filterCategory").value;
+
+  resources.filter(r => {
+    const matchesSearch = r.title.toLowerCase().includes(search) || r.desc.toLowerCase().includes(search);
+    const matchesCat = !cat || r.category === cat;
+    return matchesSearch && matchesCat;
+  })
+  .forEach(r => {
+    const card = document.createElement("div");
+    card.className = "resource-card";
+    card.innerHTML = `
+      <h3>${r.title}</h3>
+      <p>${r.desc}</p>
+      <a href="${r.url}" target="_blank" rel="noopener">View Resource</a>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById("searchInput").addEventListener("input", renderResources);
+document.getElementById("filterCategory").addEventListener("change", renderResources);
+
+renderResources();
+</script>
+
+</body>
+</html>
